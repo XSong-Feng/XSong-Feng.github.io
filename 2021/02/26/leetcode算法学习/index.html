@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html  lang="zh-Hans" >
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+    content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="theme-color" content="#fff" id="theme-color">
+  <meta name="description" content="冯晓松的博客">
+  <link rel="icon" href="/img/Kaze.png">
+  <title>冯晓松的博客</title>
+  
+  
+  <meta property="og:title" content="冯晓松的博客">
+  
+  
+  <meta property="og:url" content="http://fxsong.xyz/2021/02/26/leetcode%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0/index.html">
+  
+  
+  <meta property="og:img" content="/img/Kaze.png">
+  
+  
+  
+  <meta property="og:type" content="article">
+  <meta property="og:article:published_time" content="2021-02-26">
+  <meta property="og:article:modified_time" content="2021-02-26">
+  <meta property="og:article:author" content="冯晓松">
+  
+  
+  
+  
+  
+  <script>
+    // control reverse button
+    var reverseDarkList = {
+      dark: 'light',
+      light: 'dark'
+    };
+    var themeColor = {
+      dark: '#1c1c1e',
+      light: '#fff'
+    }
+    // get the data of css prefers-color-scheme
+    var getCssMediaQuery = function() {
+      return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    };
+    // reverse current darkmode setting function
+    var reverseDarkModeSetting = function() {
+      var setting = localStorage.getItem('user-color-scheme');
+      if(reverseDarkList[setting]) {
+        setting = reverseDarkList[setting];
+      } else if(setting === null) {
+        setting = reverseDarkList[getCssMediaQuery()];
+      } else {
+        return;
+      }
+      localStorage.setItem('user-color-scheme', setting);
+      return setting;
+    };
+    // apply current darkmode setting
+    var setDarkmode = function(mode) {
+      var setting = mode || localStorage.getItem('user-color-scheme');
+      if(setting === getCssMediaQuery()) {
+        document.documentElement.removeAttribute('data-user-color-scheme');
+        localStorage.removeItem('user-color-scheme');
+        document.getElementById('theme-color').content = themeColor[setting];
+      } else if(reverseDarkList[setting]) {
+        document.documentElement.setAttribute('data-user-color-scheme', setting);
+        document.getElementById('theme-color').content = themeColor[setting];
+      } else {
+        document.documentElement.removeAttribute('data-user-color-scheme');
+        localStorage.removeItem('user-color-scheme');
+        document.getElementById('theme-color').content = themeColor[getCssMediaQuery()];
+      }
+    };
+    setDarkmode();
+  </script>
+  <script>
+    function loadScript(url, cb) {
+      var script = document.createElement('script');
+      script.src = url;
+      if (cb) script.onload = cb;
+      script.async = true;
+      document.body.appendChild(script);
+    }
+  </script>
+  
+  <link rel="preload" href="//at.alicdn.com/t/font_1946621_i1kgafibvw.css" as="style" >
+  <link rel="preload" href="//at.alicdn.com/t/font_1952792_89b4ac4k4up.css" as="style" >
+  
+  <link rel="preload" href="/js/lib/lightbox/baguetteBox.min.js" as="script">
+  <link rel="preload" href="/js/lib/lightbox/baguetteBox.min.css" as="style" >
+  
+  
+  <link rel="preload" href="/js/lib/lozad.min.js" as="script">
+  
+  
+  
+  
+  
+  
+  
+  
+<link rel="stylesheet" href="/css/main.css">
+
+  
+  
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1946621_i1kgafibvw.css">
+
+  
+  
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1952792_89b4ac4k4up.css">
+
+  
+  
+<link rel="stylesheet" href="/js/lib/lightbox/baguetteBox.min.css">
+
+  
+  
+  
+  
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <div class="wrapper">
+    
+    <nav class="navbar">
+  <div class="navbar-logo">
+    <span class="navbar-logo-main">
+      
+      <img class="navbar-logo-img" src="/img/Kaze.png" alt="logo">
+      
+      <span class="navbar-logo-dsc">冯晓松的博客</span>
+    </span>
+  </div>
+  <div class="navbar-menu">
+    
+    <a href="/" class="navbar-menu-item">
+    
+    首页
+    
+    </a>
+    
+    <a href="/archives" class="navbar-menu-item">
+    
+    归档
+    
+    </a>
+    
+    <a href="/tags" class="navbar-menu-item">
+    
+    标签
+    
+    </a>
+    
+    <a href="/categories" class="navbar-menu-item">
+    
+    分类
+    
+    </a>
+    
+    <a href="/about" class="navbar-menu-item">
+    
+    关于
+    
+    </a>
+    
+    <a href="/links" class="navbar-menu-item">
+    
+    友链
+    
+    </a>
+    
+    <a class="navbar-menu-item darknavbar" id="dark"><i class="iconfont icon-weather"></i></a>
+    <a class="navbar-menu-item searchnavbar" id="search"><i class="iconfont icon-search" style="font-size: 1.2rem; font-weight: 400;"></i></a>
+  </div>
+</nav>
+    
+    <div id="local-search" style="display: none;">
+      <input class="navbar-menu-item" id="search-input" placeholder="请输入搜索内容...">
+      <div id="search-content"></div>
+    </div>
+    
+    <div class="section-wrap">
+      <div class="container">
+        <div class="columns">
+          <main class="main-column">
+<article class="card card-content">
+  <header>
+    <h1 class="post-title">
+      
+    </h1>
+  </header>
+  <div class="post-meta post-show-meta">
+    <time datetime="2021-02-26T08:53:42.294Z">
+      <i class="iconfont icon-calendar" style="margin-right: 2px;"></i>
+      <span>2021-02-26</span>
+    </time>
+    
+    
+    <span class="dot"></span>
+    <span>2.4k 字</span>
+    
+  </div>
+  
+  </header>
+  <div id="section" class="post-content">
+    <h1 id="关于栈"><a href="#关于栈" class="headerlink" title="关于栈"></a>关于栈</h1><h3 id="第一道（判断括号）"><a href="#第一道（判断括号）" class="headerlink" title="第一道（判断括号）"></a>第一道（判断括号）</h3><p><strong><em>题目描述</em></strong><br>有效括号字符串为空 (“”)、”(“ + A + “)” 或 A + B，其中 A 和 B 都是有效的括号字符串，+ 代表字符串的连接。例如，””，”()”，”(())()” 和 “(()(()))” 都是有效的括号字符串。</p>
+<p>如果有效字符串 S 非空，且不存在将其拆分为 S = A+B 的方法，我们称其为原语（primitive），其中 A 和 B 都是非空有效括号字符串。</p>
+<p>给出一个非空有效字符串 S，考虑将其进行原语化分解，使得：S = P_1 + P_2 + … + P_k，其中 P_i 是有效括号字符串原语。</p>
+<p>对 S 进行原语化分解，删除分解中每个原语字符串的最外层括号，返回 S 。</p>
+<blockquote>
+<p><strong>思路</strong><br>result字符串保存结果<br>遍历字符串<br>左括号入栈：若入栈后栈的长度大于1，即该左括号不是原语首个左括号，结果加入’(‘<br>右括号出栈：若出栈后栈的长度大于0，即该右括号不是原语末个右括号，结果加入’)’</p>
+</blockquote>
+<h1 id="双指针（滑动窗口）"><a href="#双指针（滑动窗口）" class="headerlink" title="双指针（滑动窗口）"></a>双指针（滑动窗口）</h1><h3 id="第一道（连续子数组）"><a href="#第一道（连续子数组）" class="headerlink" title="第一道（连续子数组）"></a>第一道（连续子数组）</h3><p><strong><em>题目描述</em></strong><br>给定一个正整数数组 A，如果 A 的某个子数组中不同整数的个数恰好为 K，则称 A 的这个连续、不一定独立的子数组为 <em>好子数组</em> 。</p>
+<p>（例如，[1,2,3,1,2] 中有 3 个不同的整数：1，2，以及 3。）</p>
+<p>返回 A 中 <em>好子数组</em> 的数目。</p>
+<blockquote>
+<p><strong>思路</strong><br>我们要求的是【恰好有K个不同整数的子数组个数】，换一种思路，我们可以把问题转换成要求解【最多存在K个不同整数的子数组个数】和【最多存在K-1个不同整数的子数组个数】。<br><img src="Pictures/%E5%8F%8C%E6%8C%87%E9%92%88_1.png" alt="双指针_1" srcset="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20300%20300'%3E%3C/svg%3E" data-src="Pictures/%E5%8F%8C%E6%8C%87%E9%92%88_1.png" class="lozad post-image"></p>
+</blockquote>
+<blockquote>
+<p><strong><em>代码</em></strong></p>
+</blockquote>
+<pre class="highlight"><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">Solution</span> &#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="built_in">int</span> <span class="title">SubarraysWithKDistinct</span>(<span class="params"><span class="built_in">int</span>[] A, <span class="built_in">int</span> K</span>)</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> AtMostKDistinct(A,K)-AtMostKDistinct(A,K<span class="number">-1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="built_in">int</span> <span class="title">AtMostKDistinct</span>(<span class="params"><span class="built_in">int</span>[] A,<span class="built_in">int</span> K</span>)  <span class="comment">//求【最多存在K个不同整数的子数组个数】</span></span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        <span class="built_in">int</span> l=A.Length; <span class="comment">//数组长度</span></span><br><span class="line">        <span class="built_in">int</span> r=<span class="number">0</span>;        <span class="comment">//返回值</span></span><br><span class="line">        <span class="built_in">int</span>[] B=<span class="keyword">new</span> <span class="built_in">int</span>[l+<span class="number">1</span>];</span><br><span class="line"></span><br><span class="line">        <span class="built_in">int</span> right=<span class="number">0</span>,left=<span class="number">0</span>;     <span class="comment">//左右指针</span></span><br><span class="line">        <span class="built_in">int</span> count=<span class="number">0</span>; </span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span>(right&lt;l)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span>(B[A[right]]==<span class="number">0</span>)</span><br><span class="line">                count++;</span><br><span class="line"></span><br><span class="line">            B[A[right]]++;</span><br><span class="line">            right++;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">while</span>(count&gt;K)</span><br><span class="line">            &#123;</span><br><span class="line">                B[A[left]]--;</span><br><span class="line">                <span class="keyword">if</span>(B[A[left]]==<span class="number">0</span>)</span><br><span class="line">                    count--;</span><br><span class="line">                left++;</span><br><span class="line">            &#125;</span><br><span class="line">            r+=right-left;  <span class="comment">//这个需要记住</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> r;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre>
+
+<h3 id="反转数字（滑动窗口、差分数组）"><a href="#反转数字（滑动窗口、差分数组）" class="headerlink" title="反转数字（滑动窗口、差分数组）"></a>反转数字（滑动窗口、差分数组）</h3><p><strong><em>题目描述</em></strong><br>在仅包含 0 和 1 的数组 A 中，一次 K 位翻转包括选择一个长度为 K 的（连续）子数组，同时将子数组中的每个 0 更改为 1，而每个 1 更改为 0。</p>
+<p>返回所需的 K 位翻转的最小次数，以便数组没有值为 0 的元素。如果不可能，返回 -1。</p>
+<blockquote>
+<p><strong>概念</strong><br>首先，我们先要了解差分数组的概念。<br>差分数组的 <em>定义</em> ：对于已知有n个元素的数列d，建立记录它每项与前一项差值的差分数组f：显然，f[1]=d[1]-0=d[1];对于整数i∈[2,n]，我们让f[i]=d[i]-d[i-1]。<br>也就是说，差分数组是用来表示第 i 项与前一项的差值的，那么第 i-2 项与第 i 项的差值我们可以用第 i-1 项和第 i-2 项的差值和第 i 项与第 i-1 项的差值求出来。所以我们可以看到差分数组在算法中的主要用途：快速处理区间加减。<br>假如现在要对数列区间 [L,R] 上的每个数都加上 x，那么通过 a[i]=f[i] 的前缀和的性质可以知道：</p>
+<ul>
+<li>第一个受影响的差分数组中的元素为 f[L]，所以令 f[L]+=x，那么后面数列元素在计算过程中都会加上 x。</li>
+<li>最后一个受影响的差分数组中的元素为 f[R]，所以令 f[R+1]-=x，那么可以保证不会影响到 R 以后数列元素的计算。<br>这样一来，就不必对区间内每一个数进行处理，只需处理两个差分后的数即可。这也就是上一段所要表达的内容。</li>
+</ul>
+</blockquote>
+<p><strong><em>思路</em></strong><br><strong>差分数组</strong><br>如果采用通常的思路，本题的时间复杂度是 N^2^ 级别的，数组长度过大则会导致超时，所以我们要思考可不可以把时间复杂度降低到 O(N)。根据贪心算法的思想，我们需要翻转从左到右所有第一项为 0 的 K 长度子数组。考虑不去翻转数字，而是统计每个数字需要翻转的次数。对于一次翻转操作，相当于把子数组中所有数字的翻转次数加 1。</p>
+<p>这启发我们用差分数组的思想来计算当前数字需要翻转的次数。我们可以维护一个差分数组 diff，其中 diff[i] 表示两个相邻元素 A[i−1] 和 A[i] 的翻转次数的差，对于区间 [l,r]，将其元素全部加 1，只会影响到 l 和 r+1 处的差分值，故 diff[l] 增加 1，diff[r+1] 减少 1。</p>
+<p>通过累加差分数组可以得到当前位置需要翻转的次数，我们用变量 revCnt 来表示这一累加值。</p>
+<p>遍历到 A[i] 时，若 A[i]+revCnt 是偶数，则说明当前元素的实际值为 0，需要翻转区间 [i,i+K-1]，我们可以直接将 revCnt 增加 1，diff[i+K] 减少 1。</p>
+<p>注意到若 i+K&gt;n 则无法执行翻转操作，此时应返回 −1。</p>
+<p><strong><em>代码</em></strong></p>
+<pre class="highlight"><span class="line"><span class="function"><span class="keyword">public</span> <span class="built_in">int</span> <span class="title">MinKBitFlips</span>(<span class="params"><span class="built_in">int</span>[] A, <span class="built_in">int</span> K</span>)</span> &#123;</span><br><span class="line">    <span class="built_in">int</span> n=A.Length;             <span class="comment">//数组长度</span></span><br><span class="line">    <span class="built_in">int</span>[] diff=<span class="keyword">new</span> <span class="built_in">int</span>[n+<span class="number">1</span>];    <span class="comment">//差分数组，翻转次数</span></span><br><span class="line">    <span class="built_in">int</span> ans=<span class="number">0</span>,revcnt=<span class="number">0</span>;         </span><br><span class="line">    <span class="keyword">for</span>(<span class="built_in">int</span> i=<span class="number">0</span>;i&lt;n;++i)</span><br><span class="line">    &#123;</span><br><span class="line">        revcnt+=diff[i];</span><br><span class="line">        <span class="keyword">if</span>((A[i]+revcnt)%<span class="number">2</span>==<span class="number">0</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span>(i+K&gt;n)</span><br><span class="line">                <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">            ans++;</span><br><span class="line">            revcnt=revcnt^<span class="number">1</span>;</span><br><span class="line">            diff[i+K]=diff[i+K]^<span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ans;</span><br><span class="line">&#125;</span><br></pre>
+
+<p><strong>滑动窗口</strong><br>能否将空间复杂度优化至 O(1) 呢？</p>
+<p>回顾方法一的代码，当遍历到位置 i 时，若能知道位置 i−K 上发生了翻转操作，便可以直接修改 revCnt，从而去掉 diff 数组。</p>
+<p>注意到 0≤A[i]≤1，我们可以用 A[i] 范围之外的数来表达「是否翻转过」的含义。</p>
+<p>具体来说，若要翻转从位置 ii 开始的子数组，可以将 A[i] 加 2，这样当遍历到位置 i′  时，若有 A[i’-K]&gt;1，则说明在位置 i’-K 上发生了翻转操作。</p>
+<p><strong><em>代码</em></strong></p>
+<pre class="highlight"><span class="line"><span class="function"><span class="keyword">public</span> <span class="built_in">int</span> <span class="title">minKBitFlips</span>(<span class="params"><span class="built_in">int</span>[] A, <span class="built_in">int</span> K</span>)</span> &#123;</span><br><span class="line">    <span class="built_in">int</span> n = A.length;</span><br><span class="line">    <span class="built_in">int</span> ans = <span class="number">0</span>, revCnt = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="built_in">int</span> i = <span class="number">0</span>; i &lt; n; ++i) &#123;</span><br><span class="line">        <span class="keyword">if</span> (i &gt;= K &amp;&amp; A[i - K] &gt; <span class="number">1</span>) &#123;</span><br><span class="line">            revCnt = revCnt^<span class="number">1</span>;</span><br><span class="line">            A[i - K] -= <span class="number">2</span>; <span class="comment">// 复原数组元素，若允许修改数组 A，则可以省略</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (A[i] == revCnt) &#123;</span><br><span class="line">            <span class="keyword">if</span> (i + K &gt; n) &#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            ++ans;</span><br><span class="line">            revCnt = revCnt^<span class="number">1</span>;</span><br><span class="line">            A[i] += <span class="number">2</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ans;</span><br><span class="line">&#125;</span><br></pre>
+
+<h3 id="最大连续1的个数"><a href="#最大连续1的个数" class="headerlink" title="最大连续1的个数"></a>最大连续1的个数</h3><p>给定一个由若干 0 和 1 组成的数组 A，我们最多可以将 K 个值从 0 变成 1 。</p>
+<p>返回仅包含 1 的最长（连续）子数组的长度。</p>
+<p><strong>思路</strong><br>本次的解题思路参考非官方解答。官方题解：<a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/max-consecutive-ones-iii/%E3%80%82">https://leetcode-cn.com/problems/max-consecutive-ones-iii/。</a></p>
+<p>本题是采用滑动窗口去解答，首先我们分析题目，找到相应的思路（初次做题，思路对了，但是解题有问题）。分析本次代码：我们设立左右指针去维护滑动窗口，这次我们不去通过比较去维护一个最大值，而是维护一个只可以扩张的窗口，当窗口后移，我们在某一位置会得到最大的窗口（right-left），这也就是我们要求的长度，而后窗口后移，不满足此窗口内0的数量小于等于K，那么此窗口大小不会变。假如本题要求的是最大子数组，则不可以使用本方法。</p>
+<p><strong>代码</strong></p>
+<pre class="highlight"><span class="line"><span class="function"><span class="keyword">public</span> <span class="built_in">int</span> <span class="title">LongestOnes</span>(<span class="params"><span class="built_in">int</span>[] A, <span class="built_in">int</span> K</span>)</span> &#123;</span><br><span class="line">    <span class="built_in">int</span> cnt=<span class="number">0</span>,left=<span class="number">0</span>,right=<span class="number">0</span>,len=A.Length;</span><br><span class="line">    <span class="keyword">while</span>(right&lt;len)&#123;</span><br><span class="line">        <span class="keyword">if</span>(A[right]==<span class="number">0</span>) </span><br><span class="line">            ++cnt;</span><br><span class="line">        ++right;</span><br><span class="line">        <span class="keyword">if</span>(cnt&gt;K) &#123;</span><br><span class="line">            <span class="keyword">if</span>(A[left]==<span class="number">0</span>) </span><br><span class="line">                --cnt;</span><br><span class="line">            ++left;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> right-left;</span><br><span class="line">&#125;</span><br></pre>
+
+
+
+<h1 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h1><h3 id="第一道"><a href="#第一道" class="headerlink" title="第一道"></a>第一道</h3><p><strong><em>题目描述</em></strong><br>给定一个范围在  1 ≤ a[i] ≤ n ( n = 数组大小 ) 的 整型数组，数组中的元素一些出现了两次，另一些只出现一次。</p>
+<p>找到所有在 [1, n] 范围之间没有出现在数组中的数字。</p>
+<p>您能在不使用额外空间且时间复杂度为O(n)的情况下完成这个任务吗? 你可以假定返回的数组不算在额外空间内。</p>
+<blockquote>
+<p><strong>思路</strong><br>理解并熟悉常用的数组操作技巧。因为题目给出数组元素值的范围，因此可以借用此处。我们可以通过使数组元素加 n 的方式，判断并找出没有出现过的元素，此时它的值肯定小于 n。<br>这里用了两种方法，前一种是最开始的思路，后一种官方解法。</p>
+</blockquote>
+<blockquote>
+<p><strong><em>代码</em></strong></p>
+</blockquote>
+<pre class="highlight"><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">Solution</span> &#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> IList&lt;<span class="built_in">int</span>&gt; <span class="title">FindDisappearedNumbers</span>(<span class="params"><span class="built_in">int</span>[] nums</span>)</span> &#123;</span><br><span class="line">        <span class="comment">// HashSet&lt;int&gt; hashSet=new HashSet&lt;int&gt;();</span></span><br><span class="line">        <span class="comment">// IList&lt;int&gt; l=new List&lt;int&gt;();</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">// for(int i=0;i&lt;nums.Length;++i)</span></span><br><span class="line">        <span class="comment">// &#123;</span></span><br><span class="line">        <span class="comment">//     if(hashSet.Contains(nums[i]))</span></span><br><span class="line">        <span class="comment">//         continue;</span></span><br><span class="line">        <span class="comment">//     else</span></span><br><span class="line">        <span class="comment">//         hashSet.Add(nums[i]);</span></span><br><span class="line">        <span class="comment">// &#125;</span></span><br><span class="line">        <span class="comment">// for(int i=1;i&lt;=nums.Length;++i)</span></span><br><span class="line">        <span class="comment">// &#123;</span></span><br><span class="line">        <span class="comment">//     if(hashSet.Contains(i))</span></span><br><span class="line">        <span class="comment">//         continue;</span></span><br><span class="line">        <span class="comment">//     else</span></span><br><span class="line">        <span class="comment">//         l.Add(i);</span></span><br><span class="line">        <span class="comment">// &#125;</span></span><br><span class="line">        <span class="comment">// return l;</span></span><br><span class="line">        <span class="built_in">int</span> n=nums.Length;</span><br><span class="line">        <span class="keyword">foreach</span>(<span class="built_in">int</span> x <span class="keyword">in</span> nums)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">int</span> y=(x<span class="number">-1</span>)%n;</span><br><span class="line">            nums[y]+=n;</span><br><span class="line">        &#125;</span><br><span class="line">        IList&lt;<span class="built_in">int</span>&gt; r=<span class="keyword">new</span> List&lt;<span class="built_in">int</span>&gt;();</span><br><span class="line">        <span class="keyword">for</span>(<span class="built_in">int</span> i=<span class="number">0</span>;i&lt;n;++i)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span>(nums[i]&lt;=n)</span><br><span class="line">                r.Add(i+<span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> r;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre>
+
+<h1 id="并查集"><a href="#并查集" class="headerlink" title="并查集"></a>并查集</h1><p>概念：<img src="Pictures/%E5%B9%B6%E6%9F%A5%E9%9B%86.png" alt="并查集" srcset="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20300%20300'%3E%3C/svg%3E" data-src="Pictures/%E5%B9%B6%E6%9F%A5%E9%9B%86.png" class="lozad post-image"></p>
+
+  </div>
+  <div>
+  
+  <div class="post-note note-warning copyright" style="margin-top: 42px">
+    <p><span style="font-weight: bold;">作者：</span><a target="_blank" rel="nofollow noopener noreferrer" href="http://fxsong.xyz/about">冯晓松</a></p>
+    <p><span style="font-weight: bold;">文章链接：</span><a target="_blank" rel="nofollow noopener noreferrer" href="http://fxsong.xyz/2021/02/26/leetcode%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0/">http://fxsong.xyz/2021/02/26/leetcode%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0/</a></p>
+    <p><span style="font-weight: bold;">版权声明：</span>本博客所有文章除特别声明外，均采用<a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">CC BY-NC-SA 4.0 协议</a>。转载请注明出处！</p>
+  </div>
+  
+  </div>
+</article>
+<div class="nav">
+  
+  
+</div>
+
+<div class="card card-content toc-card" id="mobiletoc">
+  <div class="toc-header"><i class="iconfont icon-menu" style="padding-right: 2px;"></i>目录</div>
+<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%85%B3%E4%BA%8E%E6%A0%88"><span class="toc-text">关于栈</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E4%B8%80%E9%81%93%EF%BC%88%E5%88%A4%E6%96%AD%E6%8B%AC%E5%8F%B7%EF%BC%89"><span class="toc-text">第一道（判断括号）</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8F%8C%E6%8C%87%E9%92%88%EF%BC%88%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3%EF%BC%89"><span class="toc-text">双指针（滑动窗口）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E4%B8%80%E9%81%93%EF%BC%88%E8%BF%9E%E7%BB%AD%E5%AD%90%E6%95%B0%E7%BB%84%EF%BC%89"><span class="toc-text">第一道（连续子数组）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%8D%E8%BD%AC%E6%95%B0%E5%AD%97%EF%BC%88%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3%E3%80%81%E5%B7%AE%E5%88%86%E6%95%B0%E7%BB%84%EF%BC%89"><span class="toc-text">反转数字（滑动窗口、差分数组）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9C%80%E5%A4%A7%E8%BF%9E%E7%BB%AD1%E7%9A%84%E4%B8%AA%E6%95%B0"><span class="toc-text">最大连续1的个数</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%95%B0%E7%BB%84"><span class="toc-text">数组</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E4%B8%80%E9%81%93"><span class="toc-text">第一道</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%B9%B6%E6%9F%A5%E9%9B%86"><span class="toc-text">并查集</span></a></li></ol>
+</div></main>
+          <aside class="left-column">
+            
+            <div class="card card-author">
+              
+<img src="/img/Kaze.png" class="author-img">
+
+<p class="author-name">冯晓松</p>
+<p class="author-description">designed by theme-kaze</p>
+<div class="author-message">
+  <a class="author-posts-count" href="/archives">
+    <span>1</span>
+    <span>文章</span>
+  </a>
+  <a class="author-categories-count" href="/categories">
+    <span>0</span>
+    <span>分类</span>
+  </a>
+  <a class="author-tags-count" href="/tags">
+    <span>0</span>
+    <span>标签</span>
+  </a>
+</div>
+
+            </div>
+            
+            <div class="sticky-tablet">
+  
+  
+  <article class="display-when-two-columns spacer">
+    <div class="card card-content toc-card">
+      <div class="toc-header"><i class="iconfont icon-menu" style="padding-right: 2px;"></i>目录</div>
+<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%85%B3%E4%BA%8E%E6%A0%88"><span class="toc-text">关于栈</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E4%B8%80%E9%81%93%EF%BC%88%E5%88%A4%E6%96%AD%E6%8B%AC%E5%8F%B7%EF%BC%89"><span class="toc-text">第一道（判断括号）</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8F%8C%E6%8C%87%E9%92%88%EF%BC%88%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3%EF%BC%89"><span class="toc-text">双指针（滑动窗口）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E4%B8%80%E9%81%93%EF%BC%88%E8%BF%9E%E7%BB%AD%E5%AD%90%E6%95%B0%E7%BB%84%EF%BC%89"><span class="toc-text">第一道（连续子数组）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%8D%E8%BD%AC%E6%95%B0%E5%AD%97%EF%BC%88%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3%E3%80%81%E5%B7%AE%E5%88%86%E6%95%B0%E7%BB%84%EF%BC%89"><span class="toc-text">反转数字（滑动窗口、差分数组）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9C%80%E5%A4%A7%E8%BF%9E%E7%BB%AD1%E7%9A%84%E4%B8%AA%E6%95%B0"><span class="toc-text">最大连续1的个数</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%95%B0%E7%BB%84"><span class="toc-text">数组</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E4%B8%80%E9%81%93"><span class="toc-text">第一道</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%B9%B6%E6%9F%A5%E9%9B%86"><span class="toc-text">并查集</span></a></li></ol>
+    </div>
+  </article>
+  
+  
+  <article class="card card-content categories-widget">
+    <div class="categories-card">
+  <div class="categories-header"><i class="iconfont icon-fenlei" style="padding-right: 2px;"></i>分类</div>
+  <div class="categories-list">
+    
+  </div>
+</div>
+  </article>
+  
+  <article class="card card-content tags-widget">
+    <div class="tags-card">
+  <div class="tags-header"><i class="iconfont icon-biaoqian" style="padding-right: 2px;"></i>热门标签</div>
+  <div class="tags-list">
+    
+  </div>
+</div>
+  </article>
+  
+  
+</div>
+          </aside>
+          <aside class="right-column">
+            <div class="sticky-widescreen">
+  
+  
+  <article class="card card-content toc-card">
+    <div class="toc-header"><i class="iconfont icon-menu" style="padding-right: 2px;"></i>目录</div>
+<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%85%B3%E4%BA%8E%E6%A0%88"><span class="toc-text">关于栈</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E4%B8%80%E9%81%93%EF%BC%88%E5%88%A4%E6%96%AD%E6%8B%AC%E5%8F%B7%EF%BC%89"><span class="toc-text">第一道（判断括号）</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8F%8C%E6%8C%87%E9%92%88%EF%BC%88%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3%EF%BC%89"><span class="toc-text">双指针（滑动窗口）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E4%B8%80%E9%81%93%EF%BC%88%E8%BF%9E%E7%BB%AD%E5%AD%90%E6%95%B0%E7%BB%84%EF%BC%89"><span class="toc-text">第一道（连续子数组）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%8D%E8%BD%AC%E6%95%B0%E5%AD%97%EF%BC%88%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3%E3%80%81%E5%B7%AE%E5%88%86%E6%95%B0%E7%BB%84%EF%BC%89"><span class="toc-text">反转数字（滑动窗口、差分数组）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9C%80%E5%A4%A7%E8%BF%9E%E7%BB%AD1%E7%9A%84%E4%B8%AA%E6%95%B0"><span class="toc-text">最大连续1的个数</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%95%B0%E7%BB%84"><span class="toc-text">数组</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E4%B8%80%E9%81%93"><span class="toc-text">第一道</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%B9%B6%E6%9F%A5%E9%9B%86"><span class="toc-text">并查集</span></a></li></ol>
+  </article>
+  
+  
+  <article class="card card-content">
+    <div class="recent-posts-card">
+  <div class="recent-posts-header"><i class="iconfont icon-wenzhang_huaban" style="padding-right: 2px;"></i>最近文章</div>
+  <div class="recent-posts-list">
+    
+      <div class="recent-posts-item">
+        <div class="recent-posts-item-title">2021-02-26</div>
+        <a href="/2021/02/26/leetcode算法学习/"><div class="recent-posts-item-content"></div></a>
+      </div>
+    
+  </div>
+</div>
+  </article>
+  
+  
+</div>
+          </aside>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <footer class="footer">
+  <div class="footer-container">
+    <div>
+      <div class="footer-dsc">
+        <span>Copyright ©
+          
+          2020 -
+          
+          2021
+        </span>
+        &nbsp;
+        <a href="/" class="footer-link">冯晓松的博客 </a>
+      </div>
+    </div>
+
+    
+    <div class="footer-dsc">
+      
+      Powered by
+      <a href="https://hexo.io/" class="footer-link" target="_blank" rel="nofollow noopener noreferrer">&nbsp;Hexo </a>
+      
+      
+      <span>&nbsp;|&nbsp;</span>
+      
+      
+      Theme -
+      <a href="https://github.com/theme-kaze" class="footer-link" target="_blank"
+        rel="nofollow noopener noreferrer">&nbsp;Kaze</a>
+      
+    </div>
+    
+    
+    
+    
+</footer>
+  <a role="button" id="scrollbutton" class="basebutton"  aria-label="回到顶部">
+  <i class="iconfont icon-arrowleft button-icon"></i>
+</a>
+<a role="button" id="menubutton" class="basebutton">
+  <i class="iconfont icon-menu button-icon"></i>
+</a>
+<a role="button" id="popbutton" class="basebutton" aria-label="控制中心">
+  <i class="iconfont icon-expand button-icon"></i>
+</a>
+<a role="button" id="darkbutton" class="basebutton darkwidget" aria-label="夜色模式">
+  <i class="iconfont icon-weather button-icon"></i>
+</a>
+<a role="button" id="searchbutton" class="basebutton searchwidget" aria-label="搜索">
+  <i class="iconfont icon-search button-icon"></i>
+</a>
+
+  
+  
+  
+  <script>
+  var addImgLayout = function () {
+    var img = document.querySelectorAll('.post-content img');
+    var i;
+    for (i = 0; i < img.length; i++) {
+      var wrapper = document.createElement('a');
+      wrapper.setAttribute('href', img[i].getAttribute('data-src'));
+      wrapper.setAttribute('aria-label', 'illustration');
+      wrapper.style.cssText = 'width: 100%; display: flex; justify-content: center;';
+      if (img[i].alt) wrapper.dataset.caption = img[i].alt;
+      wrapper.dataset.nolink = true;
+      img[i].before(wrapper);
+      wrapper.append(img[i]);
+      var divWrap = document.createElement('div');
+      divWrap.classList.add('gallery');
+      wrapper.before(divWrap);
+      divWrap.append(wrapper);
+    }
+    baguetteBox.run('.gallery');
+  }
+</script>
+<script>loadScript("/js/lib/lightbox/baguetteBox.min.js", addImgLayout)</script>
+  
+  
+  
+<script src="/js/main.js"></script>
+
+  
+  
+  <script>
+    var addLazyload = function () {
+      var observer = lozad('.lozad', {
+        load: function (el) {
+          el.srcset = el.getAttribute('data-src');
+        },
+        loaded: function (el) {
+          el.classList.add('loaded');
+        }
+      });
+      observer.observe();
+    }
+  </script>
+  <script>loadScript("/js/lib/lozad.min.js", addLazyload)</script>
+  
+  
+</body>
+
+</html>

@@ -8,16 +8,24 @@
   <meta name="theme-color" content="#fff" id="theme-color">
   <meta name="description" content="冯晓松的博客">
   <link rel="icon" href="/img/Kaze.png">
-  <title>归档</title>
+  <title>比特位计数</title>
   
   
-  <meta property="og:title" content="归档">
+  <meta property="og:title" content="比特位计数">
   
   
-  <meta property="og:url" content="http://fxsong.xyz/archives/index.html">
+  <meta property="og:url" content="http://fxsong.xyz/2021/03/03/%E6%AF%94%E7%89%B9%E4%BD%8D%E8%AE%A1%E6%95%B0/index.html">
   
   
   <meta property="og:img" content="/img/Kaze.png">
+  
+  
+  
+  <meta property="og:type" content="article">
+  <meta property="og:article:published_time" content="2021-03-03">
+  <meta property="og:article:modified_time" content="2021-03-03">
+  <meta property="og:article:author" content="冯晓松">
+  
   
   
   
@@ -105,6 +113,10 @@
 
   
   
+<link rel="stylesheet" href="/js/lib/lightbox/baguetteBox.min.css">
+
+  
+  
   
   
 <meta name="generator" content="Hexo 5.4.0"></head>
@@ -174,39 +186,73 @@
       <div class="container">
         <div class="columns">
           <main class="main-column">
-<div class="card card-content">
-  <h1 class="widget-title">归档</h1>
-</div>
-<div class="archive-timeline">
-  
-  
-  
-  <div class="archive-timeline-tag"><span>2021</span></div>
-  
-  
-  <div class="archive-timeline-item">
-    <div class="archive-timeline-post">
-      <div class="card card-content">
-        <div class="archive-timeline-post-date">2021-03-03</div>
-        <div class="archive-timeline-post-content"><a href="/2021/03/03/比特位计数/"
-            class="archive-timeline-post-item">比特位计数</a></div>
-      </div>
-    </div>
+<article class="card card-content">
+  <header>
+    <h1 class="post-title">
+      比特位计数
+    </h1>
+  </header>
+  <div class="post-meta post-show-meta">
+    <time datetime="2021-03-03T11:47:31.000Z">
+      <i class="iconfont icon-calendar" style="margin-right: 2px;"></i>
+      <span>2021-03-03</span>
+    </time>
+    
+    
+    <span class="dot"></span>
+    <span>360 字</span>
+    
   </div>
   
+  </header>
+  <div id="section" class="post-content">
+    <p><strong>题目描述</strong><br>给定一个非负整数 num。对于 0 ≤ i ≤ num 范围中的每个数字 i ，计算其二进制数中的 1 的数目并将它们作为数组返回。</p>
+<p><strong>示例1</strong></p>
+<blockquote>
+<p><strong>输入：</strong> 5<br><strong>输出：</strong> [0,1,1,2,1,2]</p>
+</blockquote>
+<p><strong>题解</strong></p>
+<p><strong>方法一：直接计算</strong><br>这应该是我们最先想到的方法，即计算每一个数的二进制1的个数。<br>这种方法的时间复杂度为 *O(k × m)*，空间复杂度为 *O(1)*（返回结果不计入空间复杂度）。</p>
+<p><strong>方法二：动态规划</strong><br>我们假设 <em>0 ≤ j &lt; i</em>,那么我们是否可以通过已知 <em>j</em> 的二进制1的个数去求 <em>i</em> 的，这也是动态规划的思想，那么我们要通过求 <em>dp</em> 的表达式去构思代码。<br>我们知道 <em>n&amp;(n-1)</em> 会将 <em>n</em> 二进制最右边的1置0，所以可以通过这一点来构思 <em>dp</em> 方程。即 <em>dp[x]=dp[x&amp;(x-1)]+1</em> 。</p>
+<p><strong>C#代码</strong></p>
+<pre class="highlight"><span class="line"><span class="function"><span class="keyword">public</span> <span class="built_in">int</span>[] <span class="title">CountBits</span>(<span class="params"><span class="built_in">int</span> num</span>)</span> &#123;</span><br><span class="line">    <span class="built_in">int</span>[] dp=<span class="keyword">new</span> <span class="built_in">int</span>[num+<span class="number">1</span>];</span><br><span class="line">    <span class="keyword">for</span>(<span class="built_in">int</span> i=<span class="number">1</span>;i&lt;num+<span class="number">1</span>;++i)</span><br><span class="line">    &#123;</span><br><span class="line">        dp[i]=dp[i&amp;(i<span class="number">-1</span>)]+<span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> dp;</span><br><span class="line">&#125;</span><br></pre>
+
+<p><strong>时间复杂度：<em>O(n)</em></strong><br><strong>空间复杂度：<em>O(1)</em></strong> （返回结果不计入空间复杂度）</p>
+<p>题目来源：力扣（LeetCode）<br>链接：<a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/counting-bits">https://leetcode-cn.com/problems/counting-bits</a></p>
+<p><strong><em>位运算常用技巧</em></strong><br>获取最右边的1：x &amp; (-1)<br>最右边1置0：x &amp; (x-1)<br>判断奇偶：(a&amp;1) == 1</p>
+
+  </div>
+  <div>
   
-  <div class="archive-timeline-item">
-    <div class="archive-timeline-post">
-      <div class="card card-content">
-        <div class="archive-timeline-post-date">2021-02-26</div>
-        <div class="archive-timeline-post-content"><a href="/2021/02/26/leetcode算法学习/"
-            class="archive-timeline-post-item">leetcode算法学习</a></div>
+  <div class="post-note note-warning copyright" style="margin-top: 42px">
+    <p><span style="font-weight: bold;">作者：</span><a target="_blank" rel="nofollow noopener noreferrer" href="http://fxsong.xyz/about">冯晓松</a></p>
+    <p><span style="font-weight: bold;">文章链接：</span><a target="_blank" rel="nofollow noopener noreferrer" href="http://fxsong.xyz/2021/03/03/%E6%AF%94%E7%89%B9%E4%BD%8D%E8%AE%A1%E6%95%B0/">http://fxsong.xyz/2021/03/03/%E6%AF%94%E7%89%B9%E4%BD%8D%E8%AE%A1%E6%95%B0/</a></p>
+    <p><span style="font-weight: bold;">版权声明：</span>本博客所有文章除特别声明外，均采用<a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">CC BY-NC-SA 4.0 协议</a>。转载请注明出处！</p>
+  </div>
+  
+  </div>
+</article>
+<div class="nav">
+  
+  
+  <div class="nav-item-next">
+    <a href="/2021/02/26/leetcode算法学习/" class="nav-link">
+      <div>
+        <div class="nav-label">下一篇</div>
+        
+        <div class="nav-title">leetcode算法学习 </div>
+        
       </div>
-    </div>
+      <i class="iconfont icon-right nav-next-icon"></i>
+    </a>
   </div>
   
 </div>
-</main>
+
+<div class="card card-content toc-card" id="mobiletoc">
+  <div class="toc-header"><i class="iconfont icon-menu" style="padding-right: 2px;"></i>目录</div>
+
+</div></main>
           <aside class="left-column">
             
             <div class="card card-author">
@@ -235,6 +281,13 @@
             <div class="sticky-tablet">
   
   
+  <article class="display-when-two-columns spacer">
+    <div class="card card-content toc-card">
+      <div class="toc-header"><i class="iconfont icon-menu" style="padding-right: 2px;"></i>目录</div>
+
+    </div>
+  </article>
+  
   
   <article class="card card-content categories-widget">
     <div class="categories-card">
@@ -255,38 +308,16 @@
   </article>
   
   
-  <article class="card card-content widescreen-archive archive-widget">
-    <div class="archive-card">
-  <div class="archive-card-header"><i class="iconfont icon-wodebaobiao" style="padding-right: 2px;"></i>归档</div>
-  <div class="archive-card-list">
-    
-    
-    
-      
-        
-        
-        
-      
-    
-      
-        
-      
-    
-    
-      <a href="/archives/2021" class="archive-card-list-item">
-          2021
-          <span class="archive-card-list-item-badge">2</span>
-      </a>
-    
-  </div>
-</div>
-  </article>
-  
 </div>
           </aside>
           <aside class="right-column">
             <div class="sticky-widescreen">
   
+  
+  <article class="card card-content toc-card">
+    <div class="toc-header"><i class="iconfont icon-menu" style="padding-right: 2px;"></i>目录</div>
+
+  </article>
   
   
   <article class="card card-content">
@@ -308,33 +339,6 @@
 </div>
   </article>
   
-  
-  <article class="card card-content">
-    <div class="archive-card">
-  <div class="archive-card-header"><i class="iconfont icon-wodebaobiao" style="padding-right: 2px;"></i>归档</div>
-  <div class="archive-card-list">
-    
-    
-    
-      
-        
-        
-        
-      
-    
-      
-        
-      
-    
-    
-      <a href="/archives/2021" class="archive-card-list-item">
-          2021
-          <span class="archive-card-list-item-badge">2</span>
-      </a>
-    
-  </div>
-</div>
-  </article>
   
 </div>
           </aside>
@@ -396,6 +400,29 @@
 
   
   
+  
+  <script>
+  var addImgLayout = function () {
+    var img = document.querySelectorAll('.post-content img');
+    var i;
+    for (i = 0; i < img.length; i++) {
+      var wrapper = document.createElement('a');
+      wrapper.setAttribute('href', img[i].getAttribute('data-src'));
+      wrapper.setAttribute('aria-label', 'illustration');
+      wrapper.style.cssText = 'width: 100%; display: flex; justify-content: center;';
+      if (img[i].alt) wrapper.dataset.caption = img[i].alt;
+      wrapper.dataset.nolink = true;
+      img[i].before(wrapper);
+      wrapper.append(img[i]);
+      var divWrap = document.createElement('div');
+      divWrap.classList.add('gallery');
+      wrapper.before(divWrap);
+      divWrap.append(wrapper);
+    }
+    baguetteBox.run('.gallery');
+  }
+</script>
+<script>loadScript("/js/lib/lightbox/baguetteBox.min.js", addImgLayout)</script>
   
   
   

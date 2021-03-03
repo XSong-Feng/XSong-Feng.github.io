@@ -8,10 +8,10 @@
   <meta name="theme-color" content="#fff" id="theme-color">
   <meta name="description" content="冯晓松的博客">
   <link rel="icon" href="/img/Kaze.png">
-  <title>冯晓松的博客</title>
+  <title>leetcode算法学习</title>
   
   
-  <meta property="og:title" content="冯晓松的博客">
+  <meta property="og:title" content="leetcode算法学习">
   
   
   <meta property="og:url" content="http://fxsong.xyz/2021/02/26/leetcode%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0/index.html">
@@ -186,14 +186,22 @@
       <div class="container">
         <div class="columns">
           <main class="main-column">
+<div class="image-wrapper">
+  <img src="/img/Kaze.png" data-src="/img/Kaze.png"
+    srcset="data:image/svg+xml,%3Csvg%20xmlns=&#39;http://www.w3.org/2000/svg&#39;%20viewBox=&#39;0%200%20300%20300&#39;%3E%3C/svg%3E"
+    class="image lozad"
+    alt="thumbnail"
+  >
+</div>
+
 <article class="card card-content">
   <header>
     <h1 class="post-title">
-      
+      leetcode算法学习
     </h1>
   </header>
   <div class="post-meta post-show-meta">
-    <time datetime="2021-02-26T08:53:42.294Z">
+    <time datetime="2021-02-25T16:00:00.000Z">
       <i class="iconfont icon-calendar" style="margin-right: 2px;"></i>
       <span>2021-02-26</span>
     </time>
@@ -217,7 +225,7 @@
 <p>（例如，[1,2,3,1,2] 中有 3 个不同的整数：1，2，以及 3。）</p>
 <p>返回 A 中 <em>好子数组</em> 的数目。</p>
 <blockquote>
-<p><strong>思路</strong><br>我们要求的是【恰好有K个不同整数的子数组个数】，换一种思路，我们可以把问题转换成要求解【最多存在K个不同整数的子数组个数】和【最多存在K-1个不同整数的子数组个数】。<br><img src="Pictures/%E5%8F%8C%E6%8C%87%E9%92%88_1.png" alt="双指针_1" srcset="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20300%20300'%3E%3C/svg%3E" data-src="Pictures/%E5%8F%8C%E6%8C%87%E9%92%88_1.png" class="lozad post-image"></p>
+<p><strong>思路</strong><br>我们要求的是【恰好有K个不同整数的子数组个数】，换一种思路，我们可以把问题转换成要求解【最多存在K个不同整数的子数组个数】和【最多存在K-1个不同整数的子数组个数】。<br><img src="/img/Pictures/%E5%8F%8C%E6%8C%87%E9%92%88_1.png" alt="双指针_1" srcset="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20300%20300'%3E%3C/svg%3E" data-src="/img/Pictures/%E5%8F%8C%E6%8C%87%E9%92%88_1.png" class="lozad post-image"></p>
 </blockquote>
 <blockquote>
 <p><strong><em>代码</em></strong></p>
@@ -268,7 +276,9 @@
 </blockquote>
 <pre class="highlight"><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">Solution</span> &#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> IList&lt;<span class="built_in">int</span>&gt; <span class="title">FindDisappearedNumbers</span>(<span class="params"><span class="built_in">int</span>[] nums</span>)</span> &#123;</span><br><span class="line">        <span class="comment">// HashSet&lt;int&gt; hashSet=new HashSet&lt;int&gt;();</span></span><br><span class="line">        <span class="comment">// IList&lt;int&gt; l=new List&lt;int&gt;();</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">// for(int i=0;i&lt;nums.Length;++i)</span></span><br><span class="line">        <span class="comment">// &#123;</span></span><br><span class="line">        <span class="comment">//     if(hashSet.Contains(nums[i]))</span></span><br><span class="line">        <span class="comment">//         continue;</span></span><br><span class="line">        <span class="comment">//     else</span></span><br><span class="line">        <span class="comment">//         hashSet.Add(nums[i]);</span></span><br><span class="line">        <span class="comment">// &#125;</span></span><br><span class="line">        <span class="comment">// for(int i=1;i&lt;=nums.Length;++i)</span></span><br><span class="line">        <span class="comment">// &#123;</span></span><br><span class="line">        <span class="comment">//     if(hashSet.Contains(i))</span></span><br><span class="line">        <span class="comment">//         continue;</span></span><br><span class="line">        <span class="comment">//     else</span></span><br><span class="line">        <span class="comment">//         l.Add(i);</span></span><br><span class="line">        <span class="comment">// &#125;</span></span><br><span class="line">        <span class="comment">// return l;</span></span><br><span class="line">        <span class="built_in">int</span> n=nums.Length;</span><br><span class="line">        <span class="keyword">foreach</span>(<span class="built_in">int</span> x <span class="keyword">in</span> nums)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">int</span> y=(x<span class="number">-1</span>)%n;</span><br><span class="line">            nums[y]+=n;</span><br><span class="line">        &#125;</span><br><span class="line">        IList&lt;<span class="built_in">int</span>&gt; r=<span class="keyword">new</span> List&lt;<span class="built_in">int</span>&gt;();</span><br><span class="line">        <span class="keyword">for</span>(<span class="built_in">int</span> i=<span class="number">0</span>;i&lt;n;++i)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span>(nums[i]&lt;=n)</span><br><span class="line">                r.Add(i+<span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> r;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre>
 
-<h1 id="并查集"><a href="#并查集" class="headerlink" title="并查集"></a>并查集</h1><p>概念：<img src="Pictures/%E5%B9%B6%E6%9F%A5%E9%9B%86.png" alt="并查集" srcset="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20300%20300'%3E%3C/svg%3E" data-src="Pictures/%E5%B9%B6%E6%9F%A5%E9%9B%86.png" class="lozad post-image"></p>
+<h1 id="并查集"><a href="#并查集" class="headerlink" title="并查集"></a>并查集</h1><p>概念：<img src="/img/Pictures/%E5%B9%B6%E6%9F%A5%E9%9B%86.png" alt="并查集" srcset="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20300%20300'%3E%3C/svg%3E" data-src="/img/Pictures/%E5%B9%B6%E6%9F%A5%E9%9B%86.png" class="lozad post-image">
+ </p>
+<p>题目来源：力扣（LeetCode）<br>链接：<a target="_blank" rel="noopener" href="https://leetcode-cn.com/">https://leetcode-cn.com</a></p>
 
   </div>
   <div>
@@ -282,6 +292,18 @@
   </div>
 </article>
 <div class="nav">
+  
+  <div class="nav-item-prev">
+    <a href="/2021/03/03/比特位计数/" class="nav-link">
+      <i class="iconfont icon-left nav-prev-icon"></i>
+      <div>
+        <div class="nav-label">上一篇</div>
+        
+        <div class="nav-title">比特位计数 </div>
+        
+      </div>
+    </a>
+  </div>
   
   
 </div>
@@ -297,10 +319,10 @@
 <img src="/img/Kaze.png" class="author-img">
 
 <p class="author-name">冯晓松</p>
-<p class="author-description">designed by theme-kaze</p>
+<p class="author-description">Be like water!</p>
 <div class="author-message">
   <a class="author-posts-count" href="/archives">
-    <span>1</span>
+    <span>2</span>
     <span>文章</span>
   </a>
   <a class="author-categories-count" href="/categories">
@@ -363,8 +385,13 @@
   <div class="recent-posts-list">
     
       <div class="recent-posts-item">
+        <div class="recent-posts-item-title">2021-03-03</div>
+        <a href="/2021/03/03/比特位计数/"><div class="recent-posts-item-content">比特位计数</div></a>
+      </div>
+    
+      <div class="recent-posts-item">
         <div class="recent-posts-item-title">2021-02-26</div>
-        <a href="/2021/02/26/leetcode算法学习/"><div class="recent-posts-item-content"></div></a>
+        <a href="/2021/02/26/leetcode算法学习/"><div class="recent-posts-item-content">leetcode算法学习</div></a>
       </div>
     
   </div>

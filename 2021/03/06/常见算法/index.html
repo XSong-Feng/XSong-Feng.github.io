@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html  lang="zh-Hans" >
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+    content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="theme-color" content="#fff" id="theme-color">
+  <meta name="description" content="冯晓松的博客">
+  <link rel="icon" href="/img/Kaze.png">
+  <title>常见算法</title>
+  
+  
+  <meta property="og:title" content="常见算法">
+  
+  
+  <meta property="og:url" content="http://fxsong.xyz/2021/03/06/%E5%B8%B8%E8%A7%81%E7%AE%97%E6%B3%95/index.html">
+  
+  
+  <meta property="og:img" content="/img/Kaze.png">
+  
+  
+  
+  <meta property="og:type" content="article">
+  <meta property="og:article:published_time" content="2021-03-06">
+  <meta property="og:article:modified_time" content="2021-03-06">
+  <meta property="og:article:author" content="冯晓松">
+  
+  
+  
+  
+  
+  <script>
+    // control reverse button
+    var reverseDarkList = {
+      dark: 'light',
+      light: 'dark'
+    };
+    var themeColor = {
+      dark: '#1c1c1e',
+      light: '#fff'
+    }
+    // get the data of css prefers-color-scheme
+    var getCssMediaQuery = function() {
+      return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    };
+    // reverse current darkmode setting function
+    var reverseDarkModeSetting = function() {
+      var setting = localStorage.getItem('user-color-scheme');
+      if(reverseDarkList[setting]) {
+        setting = reverseDarkList[setting];
+      } else if(setting === null) {
+        setting = reverseDarkList[getCssMediaQuery()];
+      } else {
+        return;
+      }
+      localStorage.setItem('user-color-scheme', setting);
+      return setting;
+    };
+    // apply current darkmode setting
+    var setDarkmode = function(mode) {
+      var setting = mode || localStorage.getItem('user-color-scheme');
+      if(setting === getCssMediaQuery()) {
+        document.documentElement.removeAttribute('data-user-color-scheme');
+        localStorage.removeItem('user-color-scheme');
+        document.getElementById('theme-color').content = themeColor[setting];
+      } else if(reverseDarkList[setting]) {
+        document.documentElement.setAttribute('data-user-color-scheme', setting);
+        document.getElementById('theme-color').content = themeColor[setting];
+      } else {
+        document.documentElement.removeAttribute('data-user-color-scheme');
+        localStorage.removeItem('user-color-scheme');
+        document.getElementById('theme-color').content = themeColor[getCssMediaQuery()];
+      }
+    };
+    setDarkmode();
+  </script>
+  <script>
+    function loadScript(url, cb) {
+      var script = document.createElement('script');
+      script.src = url;
+      if (cb) script.onload = cb;
+      script.async = true;
+      document.body.appendChild(script);
+    }
+  </script>
+  
+  <link rel="preload" href="//at.alicdn.com/t/font_1946621_i1kgafibvw.css" as="style" >
+  <link rel="preload" href="//at.alicdn.com/t/font_1952792_89b4ac4k4up.css" as="style" >
+  
+  <link rel="preload" href="/js/lib/lightbox/baguetteBox.min.js" as="script">
+  <link rel="preload" href="/js/lib/lightbox/baguetteBox.min.css" as="style" >
+  
+  
+  <link rel="preload" href="/js/lib/lozad.min.js" as="script">
+  
+  
+  
+  
+  
+  
+  
+  
+<link rel="stylesheet" href="/css/main.css">
+
+  
+  
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1946621_i1kgafibvw.css">
+
+  
+  
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1952792_89b4ac4k4up.css">
+
+  
+  
+<link rel="stylesheet" href="/js/lib/lightbox/baguetteBox.min.css">
+
+  
+  
+  
+  
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <div class="wrapper">
+    
+    <nav class="navbar">
+  <div class="navbar-logo">
+    <span class="navbar-logo-main">
+      
+      <img class="navbar-logo-img" src="/img/Kaze.png" alt="logo">
+      
+      <span class="navbar-logo-dsc">冯晓松的博客</span>
+    </span>
+  </div>
+  <div class="navbar-menu">
+    
+    <a href="/" class="navbar-menu-item">
+    
+    首页
+    
+    </a>
+    
+    <a href="/archives" class="navbar-menu-item">
+    
+    归档
+    
+    </a>
+    
+    <a href="/tags" class="navbar-menu-item">
+    
+    标签
+    
+    </a>
+    
+    <a href="/categories" class="navbar-menu-item">
+    
+    分类
+    
+    </a>
+    
+    <a href="/about" class="navbar-menu-item">
+    
+    关于
+    
+    </a>
+    
+    <a href="/links" class="navbar-menu-item">
+    
+    友链
+    
+    </a>
+    
+    <a class="navbar-menu-item darknavbar" id="dark"><i class="iconfont icon-weather"></i></a>
+    <a class="navbar-menu-item searchnavbar" id="search"><i class="iconfont icon-search" style="font-size: 1.2rem; font-weight: 400;"></i></a>
+  </div>
+</nav>
+    
+    <div id="local-search" style="display: none;">
+      <input class="navbar-menu-item" id="search-input" placeholder="请输入搜索内容...">
+      <div id="search-content"></div>
+    </div>
+    
+    <div class="section-wrap">
+      <div class="container">
+        <div class="columns">
+          <main class="main-column">
+<article class="card card-content">
+  <header>
+    <h1 class="post-title">
+      常见算法
+    </h1>
+  </header>
+  <div class="post-meta post-show-meta">
+    <time datetime="2021-03-06T05:10:01.000Z">
+      <i class="iconfont icon-calendar" style="margin-right: 2px;"></i>
+      <span>2021-03-06</span>
+    </time>
+    
+    
+    <span class="dot"></span>
+    <span>1.4k 字</span>
+    
+  </div>
+  
+  </header>
+  <div id="section" class="post-content">
+    <h3 id="判断链表是否有环"><a href="#判断链表是否有环" class="headerlink" title="判断链表是否有环"></a>判断链表是否有环</h3><p><strong>题目描述</strong></p>
+<p>有一个单向链表，链表中有可能出现“环”，就像下图这样。<br>那么，如何用程序判断该链表是否为有环链表呢？<br><img src="/img/Pictures/%E6%9C%89%E7%8E%AF%E9%93%BE%E8%A1%A8.png" alt="有环链表" srcset="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20300%20300'%3E%3C/svg%3E" data-src="/img/Pictures/%E6%9C%89%E7%8E%AF%E9%93%BE%E8%A1%A8.png" class="lozad post-image"></p>
+<p><strong>题解</strong></p>
+<p>我们可以采用快慢指针的方法，创建两个指针p1和p2，让它们同时指向这个链表的头节点。然后开始一个大循环，在循环体中。让指针p1每次向后移动1个节点，让指针p2每次向后移动2个节点，然后比较两个指针指向的节点是否相同。如果相同，则可以判断出链表有环，如果不同，则继续下一次循环。</p>
+<p><strong>代码</strong></p>
+<details>
+    <summary><b>有环链表</b></summary>
+
+<pre class="highlight"><span class="line"><span class="comment">//判断是否有环</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="built_in">bool</span> <span class="title">IsCycle</span>(<span class="params">Node head</span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    Node p1 = head;</span><br><span class="line">    Node p2 = head;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span>(p2 != <span class="literal">null</span> &amp;&amp; p2.next != <span class="literal">null</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        p1 = p1.next;</span><br><span class="line">        p2 = p2.next.next;</span><br><span class="line">        <span class="keyword">if</span>(p1 == p2)</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//链表节点</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">class</span> <span class="title">Node</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">int</span> data;</span><br><span class="line">    Node next;</span><br><span class="line">    Node(<span class="built_in">int</span> data)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">this</span>.data = data;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre>
+</details>
+&nbsp
+
+<p><strong>问题扩展</strong></p>
+<p><strong>1. 求环长</strong></p>
+<p>当两个指针首次相遇，证明链表有环的时候，让两个指针从相遇点继续前进，并统计前进的循环次数，直到两个指针第二次相遇。此时，统计出来的前进次数就是环长。</p>
+<p><strong>2. 求入环点</strong></p>
+<p><img src="/img/Pictures/%E5%85%A5%E7%8E%AF%E7%82%B9.png" alt="入环点" srcset="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20300%20300'%3E%3C/svg%3E" data-src="/img/Pictures/%E5%85%A5%E7%8E%AF%E7%82%B9.png" class="lozad post-image"></p>
+<p>上图是对有环链表所做的一个抽象示意图。假设从链表头节点到入环点的距离是D，从入环点到两个指针首次相遇点的距离是S1，从首次相遇点回到入环点的距离是S2 。<br>那么，当两个指针首次相遇时，各自所走的距离是多少呢？</p>
+<p>指针p1一次只走1步，所走的距离是D+S1。<br>指针p2一次走2步，多走了n(n&gt;=1)整圈，所走的距离是D+S1+n(S1+S1)。</p>
+<p>由于p2的速度是p1的2倍，所以所走距离也是p1的2倍，因此：<br>2(D+S1 ) = D+S1 +n(S1 +S2 )</p>
+<p>等式经过整理得出：<br>D = (n-1)(S1 +S2 )+S2</p>
+<p>也就是说，从链表头结点到入环点的距离，等于从首次相遇点绕环n-1圈再回到入环点的距离。</p>
+<p>这样一来，只要把其中一个指针放回到头节点位置，另一个指针保持在首次相遇点，两个指针都是每次向前走1步。那么，它们最终相遇的节点，就是入环节点。</p>
+<h3 id="最小栈的实现"><a href="#最小栈的实现" class="headerlink" title="最小栈的实现"></a>最小栈的实现</h3><p><strong>题目描述</strong></p>
+<p>实现一个栈，该栈带有出栈（pop）、入栈（push）、取最小元素（getMin）3个方法。要保证这3个方法的时间复杂度都是O(1)。</p>
+<p><strong>题解</strong></p>
+<ol>
+<li>设原有的栈叫作栈A，此时创建一个额外的“备胎”栈B，用于辅助栈A。</li>
+<li>当第1个元素进入栈A时，让新元素也进入栈B。这个唯一的元素是栈A的当前最小值。</li>
+<li>之后，每当新元素进入栈A时，比较新元素和栈A当前最小值的大小，如果小于栈A当前最小值，则让新元素进入栈B，此时栈B的栈顶元素就是栈A当前最小值。</li>
+<li>每当栈A有元素出栈时，如果出栈元素是栈A当前最小值，则让栈B的栈顶元素也出栈。此时栈B余下的栈顶元素所指向的，是栈A当中原本第2小的元素，代替刚才的出栈元素成为栈A的当前最小值。（备胎转正。）</li>
+<li>当调用getMin方法时，返回栈B的栈顶所存储的值，这也是栈A的最小值。</li>
+</ol>
+<h3 id="2的整数次幂"><a href="#2的整数次幂" class="headerlink" title="2的整数次幂"></a>2的整数次幂</h3><p>判断 n &amp; (n-1) == 0</p>
+<h3 id="栈实现队列"><a href="#栈实现队列" class="headerlink" title="栈实现队列"></a>栈实现队列</h3><p><strong>题解</strong></p>
+<p>使用两个栈，让一个栈作为队列的入口，负责插入新元素；另一个栈作为队列的出口，负责移除老元素。<br>即每次入队就是入栈A，出队时时出栈B，如果B为空，则栈A中的元素入B。</p>
+<h3 id="找到正整数全排列的下一个数"><a href="#找到正整数全排列的下一个数" class="headerlink" title="找到正整数全排列的下一个数"></a>找到正整数全排列的下一个数</h3><p>即找到这个整数组全排列中仅大于原数的新整数。</p>
+<p><strong>题解</strong></p>
+<p>我们从低位开始找，找到前面大于它的最近的一个数，交换，然后排列这个数交换之后的低位数。</p>
+<p>获得全排列下一个数的3个步骤。</p>
+<ol>
+<li>从后向前查看逆序区域，找到逆序区域的前一位，也就是数字置换的边界。</li>
+<li>让逆序区域的前一位和逆序区域中大于它的最小的数字交换位置。</li>
+<li>把原来的逆序区域转为顺序状态 。</li>
+</ol>
+<h3 id="删除K个数字后的最小值"><a href="#删除K个数字后的最小值" class="headerlink" title="删除K个数字后的最小值"></a>删除K个数字后的最小值</h3><p><strong>题解</strong></p>
+<p>贪心算法，每次从左找到第一个比首位数字大的数字，然后删除，K次之后即是最小整数，每一个去除左边的0。</p>
+<p>可以使用栈，有次数K，每次比较栈顶元素，若小于栈顶元素，则交换栈顶元素，否则入栈，每次K-1，直到K为0。</p>
+<h3 id="大整数相加"><a href="#大整数相加" class="headerlink" title="大整数相加"></a>大整数相加</h3><p>使用两个数组存储整数，将大整数拆分（可以直接计算即可），然后逆序放入数组，再将两个数组相加，注意进位。最后逆序输出结果数组。</p>
+<h3 id="寻找缺失整数"><a href="#寻找缺失整数" class="headerlink" title="寻找缺失整数"></a>寻找缺失整数</h3><p>无序数组中有99个不重复正整数，范围是1<del>100，唯独缺少一个1</del>100中的整数，找出它。</p>
+<p><strong>思路</strong><br>进行异或运算，最后得到的就是那个缺失的整数。</p>
+<p><strong>扩展</strong><br>若有两个数字，可以采用分治法，可以先得出这两个数字的异或结果，找到结果中二进制哪一位是1，然后把原数组划分之后进行第二次异或。</p>
+
+  </div>
+  <div>
+  
+  <div class="post-note note-warning copyright" style="margin-top: 42px">
+    <p><span style="font-weight: bold;">作者：</span><a target="_blank" rel="nofollow noopener noreferrer" href="http://fxsong.xyz/about">冯晓松</a></p>
+    <p><span style="font-weight: bold;">文章链接：</span><a target="_blank" rel="nofollow noopener noreferrer" href="http://fxsong.xyz/2021/03/06/%E5%B8%B8%E8%A7%81%E7%AE%97%E6%B3%95/">http://fxsong.xyz/2021/03/06/%E5%B8%B8%E8%A7%81%E7%AE%97%E6%B3%95/</a></p>
+    <p><span style="font-weight: bold;">版权声明：</span>本博客所有文章除特别声明外，均采用<a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">CC BY-NC-SA 4.0 协议</a>。转载请注明出处！</p>
+  </div>
+  
+  </div>
+</article>
+<div class="nav">
+  
+  
+  <div class="nav-item-next">
+    <a href="/2021/03/05/关于树/" class="nav-link">
+      <div>
+        <div class="nav-label">下一篇</div>
+        
+        <div class="nav-title">关于树 </div>
+        
+      </div>
+      <i class="iconfont icon-right nav-next-icon"></i>
+    </a>
+  </div>
+  
+</div>
+
+<div class="card card-content toc-card" id="mobiletoc">
+  <div class="toc-header"><i class="iconfont icon-menu" style="padding-right: 2px;"></i>目录</div>
+<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%A4%E6%96%AD%E9%93%BE%E8%A1%A8%E6%98%AF%E5%90%A6%E6%9C%89%E7%8E%AF"><span class="toc-text">判断链表是否有环</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9C%80%E5%B0%8F%E6%A0%88%E7%9A%84%E5%AE%9E%E7%8E%B0"><span class="toc-text">最小栈的实现</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2%E7%9A%84%E6%95%B4%E6%95%B0%E6%AC%A1%E5%B9%82"><span class="toc-text">2的整数次幂</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A0%88%E5%AE%9E%E7%8E%B0%E9%98%9F%E5%88%97"><span class="toc-text">栈实现队列</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%89%BE%E5%88%B0%E6%AD%A3%E6%95%B4%E6%95%B0%E5%85%A8%E6%8E%92%E5%88%97%E7%9A%84%E4%B8%8B%E4%B8%80%E4%B8%AA%E6%95%B0"><span class="toc-text">找到正整数全排列的下一个数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%A0%E9%99%A4K%E4%B8%AA%E6%95%B0%E5%AD%97%E5%90%8E%E7%9A%84%E6%9C%80%E5%B0%8F%E5%80%BC"><span class="toc-text">删除K个数字后的最小值</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%A7%E6%95%B4%E6%95%B0%E7%9B%B8%E5%8A%A0"><span class="toc-text">大整数相加</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AF%BB%E6%89%BE%E7%BC%BA%E5%A4%B1%E6%95%B4%E6%95%B0"><span class="toc-text">寻找缺失整数</span></a></li></ol>
+</div></main>
+          <aside class="left-column">
+            
+            <div class="card card-author">
+              
+<img src="/img/Kaze.png" class="author-img">
+
+<p class="author-name">冯晓松</p>
+<p class="author-description">Be like water!</p>
+<div class="author-message">
+  <a class="author-posts-count" href="/archives">
+    <span>4</span>
+    <span>文章</span>
+  </a>
+  <a class="author-categories-count" href="/categories">
+    <span>0</span>
+    <span>分类</span>
+  </a>
+  <a class="author-tags-count" href="/tags">
+    <span>0</span>
+    <span>标签</span>
+  </a>
+</div>
+
+            </div>
+            
+            <div class="sticky-tablet">
+  
+  
+  <article class="display-when-two-columns spacer">
+    <div class="card card-content toc-card">
+      <div class="toc-header"><i class="iconfont icon-menu" style="padding-right: 2px;"></i>目录</div>
+<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%A4%E6%96%AD%E9%93%BE%E8%A1%A8%E6%98%AF%E5%90%A6%E6%9C%89%E7%8E%AF"><span class="toc-text">判断链表是否有环</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9C%80%E5%B0%8F%E6%A0%88%E7%9A%84%E5%AE%9E%E7%8E%B0"><span class="toc-text">最小栈的实现</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2%E7%9A%84%E6%95%B4%E6%95%B0%E6%AC%A1%E5%B9%82"><span class="toc-text">2的整数次幂</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A0%88%E5%AE%9E%E7%8E%B0%E9%98%9F%E5%88%97"><span class="toc-text">栈实现队列</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%89%BE%E5%88%B0%E6%AD%A3%E6%95%B4%E6%95%B0%E5%85%A8%E6%8E%92%E5%88%97%E7%9A%84%E4%B8%8B%E4%B8%80%E4%B8%AA%E6%95%B0"><span class="toc-text">找到正整数全排列的下一个数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%A0%E9%99%A4K%E4%B8%AA%E6%95%B0%E5%AD%97%E5%90%8E%E7%9A%84%E6%9C%80%E5%B0%8F%E5%80%BC"><span class="toc-text">删除K个数字后的最小值</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%A7%E6%95%B4%E6%95%B0%E7%9B%B8%E5%8A%A0"><span class="toc-text">大整数相加</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AF%BB%E6%89%BE%E7%BC%BA%E5%A4%B1%E6%95%B4%E6%95%B0"><span class="toc-text">寻找缺失整数</span></a></li></ol>
+    </div>
+  </article>
+  
+  
+  <article class="card card-content categories-widget">
+    <div class="categories-card">
+  <div class="categories-header"><i class="iconfont icon-fenlei" style="padding-right: 2px;"></i>分类</div>
+  <div class="categories-list">
+    
+  </div>
+</div>
+  </article>
+  
+  <article class="card card-content tags-widget">
+    <div class="tags-card">
+  <div class="tags-header"><i class="iconfont icon-biaoqian" style="padding-right: 2px;"></i>热门标签</div>
+  <div class="tags-list">
+    
+  </div>
+</div>
+  </article>
+  
+  
+</div>
+          </aside>
+          <aside class="right-column">
+            <div class="sticky-widescreen">
+  
+  
+  <article class="card card-content toc-card">
+    <div class="toc-header"><i class="iconfont icon-menu" style="padding-right: 2px;"></i>目录</div>
+<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%A4%E6%96%AD%E9%93%BE%E8%A1%A8%E6%98%AF%E5%90%A6%E6%9C%89%E7%8E%AF"><span class="toc-text">判断链表是否有环</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9C%80%E5%B0%8F%E6%A0%88%E7%9A%84%E5%AE%9E%E7%8E%B0"><span class="toc-text">最小栈的实现</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2%E7%9A%84%E6%95%B4%E6%95%B0%E6%AC%A1%E5%B9%82"><span class="toc-text">2的整数次幂</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A0%88%E5%AE%9E%E7%8E%B0%E9%98%9F%E5%88%97"><span class="toc-text">栈实现队列</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%89%BE%E5%88%B0%E6%AD%A3%E6%95%B4%E6%95%B0%E5%85%A8%E6%8E%92%E5%88%97%E7%9A%84%E4%B8%8B%E4%B8%80%E4%B8%AA%E6%95%B0"><span class="toc-text">找到正整数全排列的下一个数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%A0%E9%99%A4K%E4%B8%AA%E6%95%B0%E5%AD%97%E5%90%8E%E7%9A%84%E6%9C%80%E5%B0%8F%E5%80%BC"><span class="toc-text">删除K个数字后的最小值</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%A7%E6%95%B4%E6%95%B0%E7%9B%B8%E5%8A%A0"><span class="toc-text">大整数相加</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AF%BB%E6%89%BE%E7%BC%BA%E5%A4%B1%E6%95%B4%E6%95%B0"><span class="toc-text">寻找缺失整数</span></a></li></ol>
+  </article>
+  
+  
+  <article class="card card-content">
+    <div class="recent-posts-card">
+  <div class="recent-posts-header"><i class="iconfont icon-wenzhang_huaban" style="padding-right: 2px;"></i>最近文章</div>
+  <div class="recent-posts-list">
+    
+      <div class="recent-posts-item">
+        <div class="recent-posts-item-title">2021-03-06</div>
+        <a href="/2021/03/06/常见算法/"><div class="recent-posts-item-content">常见算法</div></a>
+      </div>
+    
+      <div class="recent-posts-item">
+        <div class="recent-posts-item-title">2021-03-05</div>
+        <a href="/2021/03/05/关于树/"><div class="recent-posts-item-content">关于树</div></a>
+      </div>
+    
+      <div class="recent-posts-item">
+        <div class="recent-posts-item-title">2021-03-04</div>
+        <a href="/2021/03/04/常用排序算法/"><div class="recent-posts-item-content">常用排序算法</div></a>
+      </div>
+    
+      <div class="recent-posts-item">
+        <div class="recent-posts-item-title">2021-03-03</div>
+        <a href="/2021/03/03/比特位计数/"><div class="recent-posts-item-content">比特位计数</div></a>
+      </div>
+    
+  </div>
+</div>
+  </article>
+  
+  
+</div>
+          </aside>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <footer class="footer">
+  <div class="footer-container">
+    <div>
+      <div class="footer-dsc">
+        <span>Copyright ©
+          
+          2020 -
+          
+          2021
+        </span>
+        &nbsp;
+        <a href="/" class="footer-link">冯晓松的博客 </a>
+      </div>
+    </div>
+
+    
+    <div class="footer-dsc">
+      
+      Powered by
+      <a href="https://hexo.io/" class="footer-link" target="_blank" rel="nofollow noopener noreferrer">&nbsp;Hexo </a>
+      
+      
+      <span>&nbsp;|&nbsp;</span>
+      
+      
+      Theme -
+      <a href="https://github.com/theme-kaze" class="footer-link" target="_blank"
+        rel="nofollow noopener noreferrer">&nbsp;Kaze</a>
+      
+    </div>
+    
+    
+    
+    
+</footer>
+  <a role="button" id="scrollbutton" class="basebutton"  aria-label="回到顶部">
+  <i class="iconfont icon-arrowleft button-icon"></i>
+</a>
+<a role="button" id="menubutton" class="basebutton">
+  <i class="iconfont icon-menu button-icon"></i>
+</a>
+<a role="button" id="popbutton" class="basebutton" aria-label="控制中心">
+  <i class="iconfont icon-expand button-icon"></i>
+</a>
+<a role="button" id="darkbutton" class="basebutton darkwidget" aria-label="夜色模式">
+  <i class="iconfont icon-weather button-icon"></i>
+</a>
+<a role="button" id="searchbutton" class="basebutton searchwidget" aria-label="搜索">
+  <i class="iconfont icon-search button-icon"></i>
+</a>
+
+  
+  
+  
+  <script>
+  var addImgLayout = function () {
+    var img = document.querySelectorAll('.post-content img');
+    var i;
+    for (i = 0; i < img.length; i++) {
+      var wrapper = document.createElement('a');
+      wrapper.setAttribute('href', img[i].getAttribute('data-src'));
+      wrapper.setAttribute('aria-label', 'illustration');
+      wrapper.style.cssText = 'width: 100%; display: flex; justify-content: center;';
+      if (img[i].alt) wrapper.dataset.caption = img[i].alt;
+      wrapper.dataset.nolink = true;
+      img[i].before(wrapper);
+      wrapper.append(img[i]);
+      var divWrap = document.createElement('div');
+      divWrap.classList.add('gallery');
+      wrapper.before(divWrap);
+      divWrap.append(wrapper);
+    }
+    baguetteBox.run('.gallery');
+  }
+</script>
+<script>loadScript("/js/lib/lightbox/baguetteBox.min.js", addImgLayout)</script>
+  
+  
+  
+<script src="/js/main.js"></script>
+
+  
+  
+  <script>
+    var addLazyload = function () {
+      var observer = lozad('.lozad', {
+        load: function (el) {
+          el.srcset = el.getAttribute('data-src');
+        },
+        loaded: function (el) {
+          el.classList.add('loaded');
+        }
+      });
+      observer.observe();
+    }
+  </script>
+  <script>loadScript("/js/lib/lozad.min.js", addLazyload)</script>
+  
+  
+</body>
+
+</html>

@@ -8,16 +8,24 @@
   <meta name="theme-color" content="#fff" id="theme-color">
   <meta name="description" content="冯晓松的博客">
   <link rel="icon" href="/img/Kaze.png">
-  <title>归档</title>
+  <title>汉诺塔问题</title>
   
   
-  <meta property="og:title" content="归档">
+  <meta property="og:title" content="汉诺塔问题">
   
   
-  <meta property="og:url" content="http://fxsong.xyz/archives/index.html">
+  <meta property="og:url" content="http://fxsong.xyz/2021/03/09/%E6%B1%89%E8%AF%BA%E5%A1%94%E9%97%AE%E9%A2%98/index.html">
   
   
   <meta property="og:img" content="/img/Kaze.png">
+  
+  
+  
+  <meta property="og:type" content="article">
+  <meta property="og:article:published_time" content="2021-03-09">
+  <meta property="og:article:modified_time" content="2021-03-09">
+  <meta property="og:article:author" content="冯晓松">
+  
   
   
   
@@ -105,6 +113,10 @@
 
   
   
+<link rel="stylesheet" href="/js/lib/lightbox/baguetteBox.min.css">
+
+  
+  
   
   
 <meta name="generator" content="Hexo 5.4.0"></head>
@@ -174,72 +186,89 @@
       <div class="container">
         <div class="columns">
           <main class="main-column">
-<div class="card card-content">
-  <h1 class="widget-title">归档</h1>
+<article class="card card-content">
+  <header>
+    <h1 class="post-title">
+      汉诺塔问题
+    </h1>
+  </header>
+  <div class="post-meta post-show-meta">
+    <time datetime="2021-03-09T12:46:19.000Z">
+      <i class="iconfont icon-calendar" style="margin-right: 2px;"></i>
+      <span>2021-03-09</span>
+    </time>
+    
+    
+    <span class="dot"></span>
+    <span>650 字</span>
+    
+  </div>
+  
+  </header>
+  <div id="section" class="post-content">
+    <h3 id="经典汉诺塔"><a href="#经典汉诺塔" class="headerlink" title="经典汉诺塔"></a>经典汉诺塔</h3><p><strong>题目描述</strong><br>在经典汉诺塔问题中，有 3 根柱子及 N 个不同大小的穿孔圆盘，盘子可以滑入任意一根柱子。一开始，所有盘子自上而下按升序依次套在第一根柱子上(即每一个盘子只能放在更大的盘子上面)。移动圆盘时受到以下限制:<br>(1) 每次只能移动一个盘子;<br>(2) 盘子只能从柱子顶端滑出移到下一根柱子;<br>(3) 盘子只能叠在比它大的盘子上。</p>
+<p>请编写程序，用栈将所有盘子从第一根柱子移到最后一根柱子。</p>
+<p><strong>题解</strong></p>
+<p>这是一道递归方法的经典题目，乍一想还挺难理清头绪的，我们不妨先从简单的入手。</p>
+<p>假设 n = 1 ,只有一个盘子，很简单，直接把它从 A 中拿出来，移到 C 上；</p>
+<p>如果 n = 2 呢？这时候我们就要借助 B 了，因为小盘子必须时刻都在大盘子上面，共需要 4 步。</p>
+<p><img src="/img/Pictures/%E6%B1%89%E8%AF%BA%E5%A1%94%E9%97%AE%E9%A2%98_1.gif" alt="汉诺塔问题" srcset="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20300%20300'%3E%3C/svg%3E" data-src="/img/Pictures/%E6%B1%89%E8%AF%BA%E5%A1%94%E9%97%AE%E9%A2%98_1.gif" class="lozad post-image"></p>
+<p>如果 n &gt; 2 呢？思路和上面是一样的，我们把 n 个盘子也看成两个部分，一部分有 1 个盘子，另一部分有 n - 1 个盘子。</p>
+<p><img src="/img/Pictures/%E6%B1%89%E8%AF%BA%E5%A1%94%E9%97%AE%E9%A2%98_2.gif" alt="汉诺塔问题" srcset="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20300%20300'%3E%3C/svg%3E" data-src="/img/Pictures/%E6%B1%89%E8%AF%BA%E5%A1%94%E9%97%AE%E9%A2%98_2.gif" class="lozad post-image"></p>
+<p>注意，当你在思考这个问题的时候，<strong>就将最初的 n 个盘子从 A 移到 C 的问题，转化成了将 n - 1 个盘子从 A 移到 C 的问题</strong>， 依次类推，直至转化成 1 个盘子的问题时，问题也就解决了。这就是分治的思想。</p>
+<p>而实现分治思想的常用方法就是递归。不难发现，如果原问题可以分解成若干个与原问题结构相同但规模较小的子问题时，往往可以用递归的方法解决。具体解决办法如下：</p>
+<ul>
+<li>n = 1 时，直接把盘子从 A 移到 C；</li>
+<li>n &gt; 1 时，<ul>
+<li>先把上面 n - 1 个盘子从 A 移到 B（子问题，递归）；</li>
+<li>再将最大的盘子从 A 移到 C；</li>
+<li>再将 B 上 n - 1 个盘子从 B 移到 C（子问题，递归）。</li>
+</ul>
+</li>
+</ul>
+<details>
+    <summary><b>汉诺塔问题</b></summary>
+
+<pre class="highlight"><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Hanota</span>(<span class="params">IList&lt;<span class="built_in">int</span>&gt; A, IList&lt;<span class="built_in">int</span>&gt; B, IList&lt;<span class="built_in">int</span>&gt; C</span>)</span> &#123;</span><br><span class="line">    Move(A,B,C,A.Count);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Move</span>(<span class="params">IList&lt;<span class="built_in">int</span>&gt; A, IList&lt;<span class="built_in">int</span>&gt; B, IList&lt;<span class="built_in">int</span>&gt; C,<span class="built_in">int</span> n</span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(n==<span class="number">1</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        C.Add(A[A.Count<span class="number">-1</span>]);</span><br><span class="line">        A.RemoveAt(A.Count<span class="number">-1</span>);</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    Move(A,C,B,n<span class="number">-1</span>);</span><br><span class="line">    Move(A,B,C,<span class="number">1</span>);</span><br><span class="line">    Move(B,A,C,n<span class="number">-1</span>);</span><br><span class="line">&#125;</span><br></pre>
+
+</details>
+&nbsp
+
+
+<p>作者：z1m<br>链接：<a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/hanota-lcci/solution/tu-jie-yi-nuo-ta-de-gu-shi-ju-shuo-dang-64ge-pan-z/">https://leetcode-cn.com/problems/hanota-lcci/solution/tu-jie-yi-nuo-ta-de-gu-shi-ju-shuo-dang-64ge-pan-z/</a></p>
+
+  </div>
+  <div>
+  
+  <div class="post-note note-warning copyright" style="margin-top: 42px">
+    <p><span style="font-weight: bold;">作者：</span><a target="_blank" rel="nofollow noopener noreferrer" href="http://fxsong.xyz/about">冯晓松</a></p>
+    <p><span style="font-weight: bold;">文章链接：</span><a target="_blank" rel="nofollow noopener noreferrer" href="http://fxsong.xyz/2021/03/09/%E6%B1%89%E8%AF%BA%E5%A1%94%E9%97%AE%E9%A2%98/">http://fxsong.xyz/2021/03/09/%E6%B1%89%E8%AF%BA%E5%A1%94%E9%97%AE%E9%A2%98/</a></p>
+    <p><span style="font-weight: bold;">版权声明：</span>本博客所有文章除特别声明外，均采用<a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">CC BY-NC-SA 4.0 协议</a>。转载请注明出处！</p>
+  </div>
+  
+  </div>
+</article>
+<div class="nav">
+  
+  
+  <div class="nav-item-next">
+    <a href="/2021/03/06/常见算法/" class="nav-link">
+      <div>
+        <div class="nav-label">下一篇</div>
+        
+        <div class="nav-title">常见算法 </div>
+        
+      </div>
+      <i class="iconfont icon-right nav-next-icon"></i>
+    </a>
+  </div>
+  
 </div>
-<div class="archive-timeline">
-  
-  
-  
-  <div class="archive-timeline-tag"><span>2021</span></div>
-  
-  
-  <div class="archive-timeline-item">
-    <div class="archive-timeline-post">
-      <div class="card card-content">
-        <div class="archive-timeline-post-date">2021-03-09</div>
-        <div class="archive-timeline-post-content"><a href="/2021/03/09/汉诺塔问题/"
-            class="archive-timeline-post-item">汉诺塔问题</a></div>
-      </div>
-    </div>
-  </div>
-  
-  
-  <div class="archive-timeline-item">
-    <div class="archive-timeline-post">
-      <div class="card card-content">
-        <div class="archive-timeline-post-date">2021-03-06</div>
-        <div class="archive-timeline-post-content"><a href="/2021/03/06/常见算法/"
-            class="archive-timeline-post-item">常见算法</a></div>
-      </div>
-    </div>
-  </div>
-  
-  
-  <div class="archive-timeline-item">
-    <div class="archive-timeline-post">
-      <div class="card card-content">
-        <div class="archive-timeline-post-date">2021-03-05</div>
-        <div class="archive-timeline-post-content"><a href="/2021/03/05/关于树/"
-            class="archive-timeline-post-item">关于树</a></div>
-      </div>
-    </div>
-  </div>
-  
-  
-  <div class="archive-timeline-item">
-    <div class="archive-timeline-post">
-      <div class="card card-content">
-        <div class="archive-timeline-post-date">2021-03-04</div>
-        <div class="archive-timeline-post-content"><a href="/2021/03/04/常用排序算法/"
-            class="archive-timeline-post-item">常用排序算法</a></div>
-      </div>
-    </div>
-  </div>
-  
-  
-  <div class="archive-timeline-item">
-    <div class="archive-timeline-post">
-      <div class="card card-content">
-        <div class="archive-timeline-post-date">2021-03-03</div>
-        <div class="archive-timeline-post-content"><a href="/2021/03/03/比特位计数/"
-            class="archive-timeline-post-item">比特位计数</a></div>
-      </div>
-    </div>
-  </div>
-  
-</div>
-</main>
+
+<div class="card card-content toc-card" id="mobiletoc">
+  <div class="toc-header"><i class="iconfont icon-menu" style="padding-right: 2px;"></i>目录</div>
+<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%8F%E5%85%B8%E6%B1%89%E8%AF%BA%E5%A1%94"><span class="toc-text">经典汉诺塔</span></a></li></ol>
+</div></main>
           <aside class="left-column">
             
             <div class="card card-author">
@@ -268,6 +297,13 @@
             <div class="sticky-tablet">
   
   
+  <article class="display-when-two-columns spacer">
+    <div class="card card-content toc-card">
+      <div class="toc-header"><i class="iconfont icon-menu" style="padding-right: 2px;"></i>目录</div>
+<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%8F%E5%85%B8%E6%B1%89%E8%AF%BA%E5%A1%94"><span class="toc-text">经典汉诺塔</span></a></li></ol>
+    </div>
+  </article>
+  
   
   <article class="card card-content categories-widget">
     <div class="categories-card">
@@ -288,50 +324,16 @@
   </article>
   
   
-  <article class="card card-content widescreen-archive archive-widget">
-    <div class="archive-card">
-  <div class="archive-card-header"><i class="iconfont icon-wodebaobiao" style="padding-right: 2px;"></i>归档</div>
-  <div class="archive-card-list">
-    
-    
-    
-      
-        
-        
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-    
-      <a href="/archives/2021" class="archive-card-list-item">
-          2021
-          <span class="archive-card-list-item-badge">5</span>
-      </a>
-    
-  </div>
-</div>
-  </article>
-  
 </div>
           </aside>
           <aside class="right-column">
             <div class="sticky-widescreen">
   
+  
+  <article class="card card-content toc-card">
+    <div class="toc-header"><i class="iconfont icon-menu" style="padding-right: 2px;"></i>目录</div>
+<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%8F%E5%85%B8%E6%B1%89%E8%AF%BA%E5%A1%94"><span class="toc-text">经典汉诺塔</span></a></li></ol>
+  </article>
   
   
   <article class="card card-content">
@@ -363,45 +365,6 @@
 </div>
   </article>
   
-  
-  <article class="card card-content">
-    <div class="archive-card">
-  <div class="archive-card-header"><i class="iconfont icon-wodebaobiao" style="padding-right: 2px;"></i>归档</div>
-  <div class="archive-card-list">
-    
-    
-    
-      
-        
-        
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-    
-      <a href="/archives/2021" class="archive-card-list-item">
-          2021
-          <span class="archive-card-list-item-badge">5</span>
-      </a>
-    
-  </div>
-</div>
-  </article>
   
 </div>
           </aside>
@@ -463,6 +426,29 @@
 
   
   
+  
+  <script>
+  var addImgLayout = function () {
+    var img = document.querySelectorAll('.post-content img');
+    var i;
+    for (i = 0; i < img.length; i++) {
+      var wrapper = document.createElement('a');
+      wrapper.setAttribute('href', img[i].getAttribute('data-src'));
+      wrapper.setAttribute('aria-label', 'illustration');
+      wrapper.style.cssText = 'width: 100%; display: flex; justify-content: center;';
+      if (img[i].alt) wrapper.dataset.caption = img[i].alt;
+      wrapper.dataset.nolink = true;
+      img[i].before(wrapper);
+      wrapper.append(img[i]);
+      var divWrap = document.createElement('div');
+      divWrap.classList.add('gallery');
+      wrapper.before(divWrap);
+      divWrap.append(wrapper);
+    }
+    baguetteBox.run('.gallery');
+  }
+</script>
+<script>loadScript("/js/lib/lightbox/baguetteBox.min.js", addImgLayout)</script>
   
   
   

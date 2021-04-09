@@ -23,7 +23,7 @@
   
   <meta property="og:type" content="article">
   <meta property="og:article:published_time" content="2021-03-06">
-  <meta property="og:article:modified_time" content="2021-03-06">
+  <meta property="og:article:modified_time" content="2021-04-03">
   <meta property="og:article:author" content="冯晓松">
   
   
@@ -200,7 +200,7 @@
     
     
     <span class="dot"></span>
-    <span>1.4k 字</span>
+    <span>1.5k 字</span>
     
   </div>
   
@@ -244,15 +244,16 @@
 <p>使用两个栈，让一个栈作为队列的入口，负责插入新元素；另一个栈作为队列的出口，负责移除老元素。<br>即每次入队就是入栈A，出队时时出栈B，如果B为空，则栈A中的元素入B。</p>
 <h3 id="找到正整数全排列的下一个数"><a href="#找到正整数全排列的下一个数" class="headerlink" title="找到正整数全排列的下一个数"></a>找到正整数全排列的下一个数</h3><p>即找到这个整数组全排列中仅大于原数的新整数。</p>
 <p><strong>题解</strong></p>
-<p>我们从低位开始找，找到前面大于它的最近的一个数，交换，然后排列这个数交换之后的低位数。</p>
+<p>我们先找到逆序区域的前一位数字，然后我们从低位开始找，找到大于这个数的最右边的一个数，交换，然后排列这个数交换之后的低位数。</p>
 <p>获得全排列下一个数的3个步骤。</p>
 <ol>
 <li>从后向前查看逆序区域，找到逆序区域的前一位，也就是数字置换的边界。</li>
 <li>让逆序区域的前一位和逆序区域中大于它的最小的数字交换位置。</li>
 <li>把原来的逆序区域转为顺序状态 。</li>
 </ol>
-<h3 id="删除K个数字后的最小值"><a href="#删除K个数字后的最小值" class="headerlink" title="删除K个数字后的最小值"></a>删除K个数字后的最小值</h3><p><strong>题解</strong></p>
-<p>贪心算法，每次从左找到第一个比首位数字大的数字，然后删除，K次之后即是最小整数，每一个去除左边的0。</p>
+<h3 id="删除K个数字后的最小值"><a href="#删除K个数字后的最小值" class="headerlink" title="删除K个数字后的最小值"></a>删除K个数字后的最小值</h3><p><strong>题目描述</strong><br>给出一个整数，从该整数中去掉k个数字，要求剩下的数字形成的新整数尽可能小。应该如何选取被去掉的数字？</p>
+<p><strong>题解</strong></p>
+<p>贪心算法，把原整数的所有数字从左到右进行比较，如果发现某一位数字大于它右面的数字，那么在删除该数字后，必然会使该数位的值降低 ，因为右面比它小的数字顶替了它的位置。</p>
 <p>可以使用栈，有次数K，每次比较栈顶元素，若小于栈顶元素，则交换栈顶元素，否则入栈，每次K-1，直到K为0。</p>
 <h3 id="大整数相加"><a href="#大整数相加" class="headerlink" title="大整数相加"></a>大整数相加</h3><p>使用两个数组存储整数，将大整数拆分（可以直接计算即可），然后逆序放入数组，再将两个数组相加，注意进位。最后逆序输出结果数组。</p>
 <h3 id="寻找缺失整数"><a href="#寻找缺失整数" class="headerlink" title="寻找缺失整数"></a>寻找缺失整数</h3><p>无序数组中有99个不重复正整数，范围是1<del>100，唯独缺少一个1</del>100中的整数，找出它。</p>
@@ -313,7 +314,7 @@
 <p class="author-description">Be like water!</p>
 <div class="author-message">
   <a class="author-posts-count" href="/archives">
-    <span>5</span>
+    <span>6</span>
     <span>文章</span>
   </a>
   <a class="author-categories-count" href="/categories">
@@ -376,6 +377,11 @@
   <div class="recent-posts-list">
     
       <div class="recent-posts-item">
+        <div class="recent-posts-item-title">2021-03-10</div>
+        <a href="/2021/03/10/删除字符串中的所有相邻重复项/"><div class="recent-posts-item-content">删除字符串中的所有相邻重复项</div></a>
+      </div>
+    
+      <div class="recent-posts-item">
         <div class="recent-posts-item-title">2021-03-09</div>
         <a href="/2021/03/09/汉诺塔问题/"><div class="recent-posts-item-content">汉诺塔问题</div></a>
       </div>
@@ -388,11 +394,6 @@
       <div class="recent-posts-item">
         <div class="recent-posts-item-title">2021-03-05</div>
         <a href="/2021/03/05/关于树/"><div class="recent-posts-item-content">关于树</div></a>
-      </div>
-    
-      <div class="recent-posts-item">
-        <div class="recent-posts-item-title">2021-03-04</div>
-        <a href="/2021/03/04/常用排序算法/"><div class="recent-posts-item-content">常用排序算法</div></a>
       </div>
     
   </div>
